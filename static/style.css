@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Utiliser 100% de la hauteur de la fenêtre */
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    background: linear-gradient(135deg, #6a0dad, #270547);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.montre {
+    width: 500px; /* Ajustez la taille de l'image selon vos besoins */
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 20px 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 20px 40px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #4b0082;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #6a0dad;
+}
