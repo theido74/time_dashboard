@@ -4,11 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Dashboard</title>
+    <title>Dashboard Admin - Graphistes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="static/script.js"></script> <!-- Assurez-vous que le chemin est correct -->!
+
 </head>
 <body>
+    <header>
+        <h1>LA FABRIQUE GRAPHIQUE</h1>
+    </header>
+    <nav>
+        <a href="#">Accueil</a>
+        <a href="#">Projets</a>
+        <a href="#">Statistiques</a>
+        <a href="#">Notifications</a>
+        <a href="#">Messages</a>
+    </nav>
     <div class="container">
-    
+        <div class="dashboard">
+            <div class="card">
+                <h2>TOP 5 Windows</h2>
+                <ul>
+                    <li id="top5"></li>
+                    <li id="top5"></li>
+                    <li id="top5"></li>
+                    <li id="top5"></li>
+                    <li id="top5"></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Temps Travaillé par Projet</h2>
+                <ul>
+                    <li id="temps_p_p"></li>
+                    <li id="temps_p_p"></li>
+                    <li id="temps_p_p"></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Statistiques</h2>
+                <p>Projets terminés: 15</p>
+                <p>Projets en retard: 3</p>
+                <p>Projets à venir: 5</p>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+            <h2>Notifications</h2>
+            <ul>
+                <li>Nouvelle mise à jour disponible pour le projet A.</li>
+                <li>Rappel: Réunion de l'équipe demain à 10h.</li>
+                <li>Feedback reçu pour le projet B.</li>
+            </ul>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+            <h2>Messages</h2>
+            <p>Aucun nouveau message.</p>
+        </div>
+       
     </div>
+
+    <div class="circle" id="circle1">
+        <h2>TEMPS TOTAL</h2>
+        <div id="result"></div> 
+    </div>
+    
+
+    <div class="circle" id="circle2">
+        <h2>TOP 5 PROJETS</h2>
+        <span >1,2,3,4,5</span>
+    </div>
+
+    <div class="circle" id="circle3">
+        <h2>CETTE SEMAINE</h2>
+        <span id="semaine">1,2,3,4,5</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 La Fabrique Graphique. Tous droits réservés.</p>
+    </footer>
 </body>
 </html>
