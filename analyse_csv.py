@@ -131,4 +131,16 @@ def find_directory():
     print(df_directory.sort_values(by='Duration', ascending=False, ignore_index=True))
     return df_directory
 
-top_5(df=df)
+def temps_total_user():
+    temps_total = {}
+    for index, row in (df.iterrows()):
+        user = row['MAC Address']
+        temps = row['Duration']
+        if user not in temps_total:
+            temps_total[user] = 0
+        temps_total[user] += temps
+    print('temps total par utilisateur : ', temps_total)
+    return temps_total
+
+temps_total_user()
+
