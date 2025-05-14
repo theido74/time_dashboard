@@ -19,7 +19,7 @@ header {
 nav {
     background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour la navigation */
     padding: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 nav a {
@@ -72,7 +72,7 @@ nav a:hover {
     margin: 10px;
     flex: 1;
     min-width: 300px;
-    max-width: 400px; /* Limite la largeur des cartes */
+    max-width: 600px; /* Limite la largeur des cartes */
     text-align: left; /* Aligne le texte à gauche */
 }
 
