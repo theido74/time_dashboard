@@ -179,8 +179,3 @@ footer {
         font-size: 0.8em; /* Ajuste la taille de la police pour les petits écrans */
     }
 }
-.temps_total {
-    font-size: 2em; /* Ajustez la taille de la police selon vos besoins */
-    color: white; /* Couleur du texte */
-    margin: 1em 0; /* Marge autour de l'élément */
-}

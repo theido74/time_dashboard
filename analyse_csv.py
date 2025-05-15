@@ -75,10 +75,8 @@ def temps_par_projet_et_user(fichier_utilisateurs):
     df_tpp = pd.DataFrame(list(temps_par_projet_utilisateur.items()), columns=['Projet et Utilisateur', 'Temps'])
     df_tpp_final = df_tpp.sort_values(by='Temps', ascending=False, ignore_index=True)
     
-    # Afficher les 3 premiers résultats
-    print(list(df_tpp_final['Projet et Utilisateur'][0:3]))
 
-    return list(df_tpp_final['Projet et Utilisateur'][0:3])
+    return list(df_tpp_final['Projet et Utilisateur'][0:5])
 
 def top_5():# Tri du DataFrame par 'Duration' et affichage
     df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])
