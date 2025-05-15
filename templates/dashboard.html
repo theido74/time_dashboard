@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Dashboard Admin - Graphistes</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="static/script.js"></script> <!-- Assurez-vous que le chemin est correct -->!
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script> <!-- Assurez-vous que le chemin est correct -->
 </head>
 <body>
     <header>
@@ -21,20 +20,14 @@
         <div class="dashboard">
             <div class="card">
                 <h2>Top 5 Fenêtres</h2>
-                <ul>
-                    <li id="top5"></li>
-                    <li id="top5"></li>
-                    <li id="top5"></li>
-                    <li id="top5"></li>
-                    <li id="top5"></li>
-                </ul>
+                <ul id="top5"></ul> <!-- Utilisation d'un ID unique pour la liste -->
             </div>
             <div class="card">
                 <h2>Qui fait quoi?</h2>
-                <ul>
-                    <p id="temps_p_p"></p>
-                    <p id="temps_p_p"></p>
-                    <p id="temps_p_p"></p>
+                <ul id="temps_p_p_list"> <!-- Utilisation d'un ID unique pour la liste -->
+                    <li class="temps_p_p"></li>
+                    <li class="temps_p_p"></li>
+                    <li class="temps_p_p"></li>
                 </ul>
             </div>
             <div class="card">
@@ -47,9 +40,14 @@
                     <li class="last_24h"></li>
                 </ul>
             </div>
-            
+            <div class="card">
+                <h2>Temps Total</h2>
+                <ul id="temps_total_list"> <!-- Utilisation d'un ID unique pour la liste -->
+                    <li class="temps_total"></li>
+                </ul>
+            </div>
         </div>
-        <div class="card" style="margin-top: 20px;">
+        <div class="card">
             <h2>Notifications</h2>
             <ul>
                 <li>Nouvelle mise à jour disponible pour le projet A.</li>
@@ -57,23 +55,6 @@
                 <li>Feedback reçu pour le projet B.</li>
             </ul>
         </div>
-       
-    </div>
-
-    <div class="circle" id="circle1">
-        <h2>TEMPS TOTAL</h2>
-        <div id="result"></div> 
-    </div>
-    
-
-    <div class="circle" id="circle2">
-        <h2>TOP APP</h2>
-        <p id="top_app"></p>
-    </div>
-
-    <div class="circle" id="circle3">
-        <h2>TOP FOLDER</h2>
-        <p id="top_folder"></p>
     </div>
 
     <footer>

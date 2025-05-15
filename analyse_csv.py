@@ -80,27 +80,24 @@ def temps_par_projet_et_user(fichier_utilisateurs):
 
     return list(df_tpp_final['Projet et Utilisateur'][0:3])
 
-
-
-
-
-
 def top_5():# Tri du DataFrame par 'Duration' et affichage
     df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])
     df_final = df.sort_values(by='Duration', ascending=False, ignore_index=True)
     return list(df_final['Directory'][0:5])
 
+
 def _24h():
     # Charger le DataFrame à partir du fichier CSV
     fichier = 'time_board.csv'
     df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])   
-
+    
     # Convertir la colonne 'Entry Time' en datetime
     df['Entry Time'] = pd.to_datetime(df['Entry Time'], errors='coerce')
-
+    # Imprimer la date actuelle
+    
     # Filtrer les entrées qui ont eu lieu dans les dernières 24 heures
-    df_24h = df[df['Entry Time'] >= datetime.datetime.now() - datetime.timedelta(days=1)]
-
+    df_24h = df[df['Entry Time'] <= datetime.datetime.now() - datetime.timedelta(days=1)]
+    
     programme_utilisation = {}
     
     # Calculer le temps total par projet
@@ -110,8 +107,8 @@ def _24h():
         if projet not in programme_utilisation:
             programme_utilisation[projet] = 0
         programme_utilisation[projet] += temps
-
     counter = {}
+
     
     # Compter le temps d'utilisation pour chaque programme
     for projet, temps in programme_utilisation.items():
@@ -119,12 +116,11 @@ def _24h():
     
     if counter:
         top5_projet = sorted(counter.items(), key=lambda x: x[1], reverse=True)[:5]
+        print(top5_projet)
         return [f"{projet}: {temps}" for projet, temps in top5_projet]  # Retourner les projets et leur temps
 
     return []  # Retourner une liste vide si aucun projet n'est trouvé
-
-    
-
+   
 def _72h():
     df_72h = df[df['Entry Time']] <= datetime.datetime.now() - datetime.timedelta(days=3)
     df_72h = df.sort_values(by='Duration', ascending=False, ignore_index=True)
@@ -197,7 +193,7 @@ def find_by_program():
 
 def find_directory():
     df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])
-    directory = ['Thunar']
+    directory = ['Thunar','Documents', 'Téléchargement','Bureau']
     pattern = '|'.join(directory)
     df_directory = df[df['Directory'].str.contains(pattern,case=False, na=False)]
     df_directory = df_directory.sort_values(by='Duration', ascending=False, ignore_index=True)
@@ -222,6 +218,7 @@ def find_directory():
     if counter:
         top_folder = max(counter, key=counter.get)
         top_time = counter[top_folder]
+        print(top_time, top_folder)
         return top_folder, top_time  # Retourner le programme et son temps
 
 
@@ -247,8 +244,7 @@ def temps_total_user():
         temps_en_heures_minutes.append(f"{heures}h {minutes}m")  # Ajouter le formatage à la liste
 
    
-
+    print(temps_en_heures_minutes)
     return temps_en_heures_minutes  # Renvoie la liste des temps formatés
 
 _24h()
-

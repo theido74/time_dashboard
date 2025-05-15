@@ -1,3 +1,7 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -12,19 +16,19 @@ body {
 
 header {
     background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour le header */
-    padding: 20px 0;
+    padding: 1.25em 0; /* 20px = 1.25em */
     text-align: center;
 }
 
 nav {
     background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour la navigation */
-    padding: 10px;
+    padding: 0.625em; /* 10px = 0.625em */
     text-align: left;
 }
 
 nav a {
     color: white;
-    margin: 0 15px;
+    margin: 0 0.9375em; /* 15px = 0.9375em */
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
@@ -34,11 +38,9 @@ nav a:hover {
     color: #ffcc00; /* Couleur au survol */
 }
 
-.landing-container{
-
+.landing-container {
     margin: 0;
     padding: 0;
-    height: 100vh; /* Utiliser 100% de la hauteur de la fenêtre */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centrer horizontalement */
@@ -46,16 +48,15 @@ nav a:hover {
     background: radial-gradient(135deg, #6a0dad, #8a2be2);
     color: white;
     font-family: Arial, sans-serif;
-
 }
+
 .container {
     flex: 1; /* Prend tout l'espace disponible */
     display: flex;
     flex-wrap: wrap; /* Permet aux cartes de passer à la ligne */
-    flex-direction: row;
     justify-content: center; /* Centre les cartes horizontalement */
     align-items: flex-start; /* Aligne les cartes en haut */
-    padding: 20px;
+    padding: 1.25em; /* 20px = 1.25em */
 }
 
 .dashboard {
@@ -66,19 +67,18 @@ nav a:hover {
 
 .card {
     background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent pour les cartes */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    margin: 10px;
-    flex: 1;
-    min-width: 300px;
-    max-width: 600px; /* Limite la largeur des cartes */
+    border-radius: 0.625em; /* 10px = 0.625em */
+    box-shadow: 0 0.25em 0.625em rgba(0, 0, 0, 0.3); /* 4px = 0.25em, 10px = 0.625em */
+    padding: 1.25em; /* 20px = 1.25em */
+    margin: 0.625em; /* 10px = 0.625em */
+    flex: 1 1 18.75em; /* 300px = 18.75em */
+    max-width: 37.5em; /* 600px = 37.5em */
     text-align: left; /* Aligne le texte à gauche */
 }
 
 .card h2 {
     font-size: 1.5em;
-    margin-bottom: 10px;
+    margin-bottom: 0.625em; /* 10px = 0.625em */
 }
 
 .card ul {
@@ -87,12 +87,12 @@ nav a:hover {
 }
 
 .card ul li {
-    margin: 5px 0; /* Espacement entre les éléments de la liste */
+    margin: 0.3125em 0; /* 5px = 0.3125em */
 }
 
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 1.25em; /* 20px = 1.25em */
     background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour le footer */
     color: white;
     position: relative;
@@ -102,12 +102,12 @@ footer {
 
 .button {
     display: inline-block;
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 0.625em 1.25em; /* 10px = 0.625em, 20px = 1.25em */
+    font-size: 1em; /* Taille de police par défaut */
     color: white;
     background-color: #4b0082;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 0.625em; /* 10px = 0.625em */
     transition: background-color 0.3s;
 }
 
@@ -115,12 +115,12 @@ footer {
     background-color: #6a0dad;
 }
 
-
-
 .circle {
     position: absolute; /* Position absolue pour le cercle */
-    width: 300px; /* Largeur du cercle */
-    height: 300px; /* Hauteur du cercle */
+    width: 20vw; /* Utilise une unité relative pour la largeur */
+    height: 20vw; /* Utilise une unité relative pour la hauteur */
+    max-width: 18.75em; /* 300px = 18.75em */
+    max-height: 18.75em; /* 300px = 18.75em */
     background-color: #4b0082; /* Couleur de fond du cercle */
     border-radius: 50%; /* Rend le div circulaire */
     display: flex;
@@ -129,39 +129,58 @@ footer {
     align-items: center; /* Centre le contenu verticalement */
     color: white; /* Couleur du texte */
     font-size: 1.5em; /* Taille de la police */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Ombre pour le cercle */
+    box-shadow: 0 0.25em 0.625em rgba(0, 0, 0, 0.3); /* Ombre pour le cercle */
 }
 
 .circle h2 {
     margin: 0; /* Supprime la marge par défaut */
     font-size: 1em; /* Ajustez la taille de la police si nécessaire */
     position: absolute; /* Positionne le texte au-dessus du cercle */
-    top: -30px; /* Ajustez cette valeur pour positionner le texte au-dessus du cercle */
+    top: -1.875em; /* Ajustez cette valeur pour positionner le texte au-dessus du cercle (30px = 1.875em) */
     left: 50%; /* Centre le texte horizontalement par rapport au cercle */
     transform: translateX(-50%); /* Centre le texte par rapport à son point d'ancrage */
 }
 
-
-
 .tab {
-    padding-left: 20px; /* Ajustez la valeur selon vos besoins */
+    padding-left: 1.25em; /* Ajustez la valeur selon vos besoins (20px = 1.25em) */
 }
 
 /* Positionnement spécifique pour chaque cercle */
 #circle1 {
     top: 50%; /* Positionne le premier cercle à 50% de la hauteur de la fenêtre */
-    left: 25%; /* Décale le premier cercle d'un tiers de la largeur de la fenêtre */
+    left: 25%; /* Décale le premier cercle d'un quart de la largeur de la fenêtre */
     transform: translate(-50%, -50%); /* Centre le premier cercle */
 }
 
 #circle2 {
     top: 50%; /* Positionne le deuxième cercle à 50% de la hauteur de la fenêtre */
-    left: 50%; /* Décale le deuxième cercle de deux tiers de la largeur de la fenêtre */
+    left: 50%; /* Décale le deuxième cercle au centre de la fenêtre */
     transform: translate(-50%, -50%); /* Centre le deuxième cercle */
 }
 
 #circle3 {
-    top: 50%; /* Positionne le deuxième cercle à 50% de la hauteur de la fenêtre */
-    left: 75%; /* Décale le deuxième cercle de deux tiers de la largeur de la fenêtre */
-    transform: translate(-50%, -50%); /* Centre le deuxième cercle */
+    top: 50%; /* Positionne le troisième cercle à 50% de la hauteur de la fenêtre */
+    left: 75%; /* Décale le troisième cercle de trois quarts de la largeur de la fenêtre */
+    transform: translate(-50%, -50%); /* Centre le troisième cercle */
+}
+
+/* Media Queries pour améliorer la réactivité */
+@media (max-width: 48em) { /* 768px = 48em */
+    .card {
+        flex: 1 1 100%; /* Les cartes prennent toute la largeur sur les petits écrans */
+    }
+
+    .circle {
+        width: 30vw; /* Ajuste la taille du cercle pour les petits écrans */
+        height: 30vw; /* Ajuste la taille du cercle pour les petits écrans */
+    }
+
+    .circle h2 {
+        font-size: 0.8em; /* Ajuste la taille de la police pour les petits écrans */
+    }
+}
+.temps_total {
+    font-size: 2em; /* Ajustez la taille de la police selon vos besoins */
+    color: white; /* Couleur du texte */
+    margin: 1em 0; /* Marge autour de l'élément */
 }

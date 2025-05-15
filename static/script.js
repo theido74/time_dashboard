@@ -7,13 +7,13 @@ $(document).ready(function() {
                 // Mettez à jour la div avec le résultat
                 let resultHtml = '';
                 data.forEach(temps => {
-                    resultHtml += `<p>${temps}</p>`; // Affichez uniquement le temps
+                    resultHtml += `<li>${temps}</li>`; // Affichez uniquement le temps
                 });
-                $('#result').html(resultHtml); // Mettez à jour la div
+                $('#temps_total_list').html(resultHtml); // Mettez à jour la div
             },
             error: function(error) {
                 console.error('Erreur lors de la récupération des données:', error);
-                $('#result').html('Erreur lors de la récupération des données.');
+                $('#temps_total_list').html('<li>Erreur lors de la récupération des données.</li>');
             }
         });
     }
@@ -21,7 +21,6 @@ $(document).ready(function() {
     // Appeler fetchData toutes les 5 secondes
     setInterval(fetchData, 5000);
     fetchData(); // Appel initial
-
 
     function fetchTop5() {
         $.ajax({
@@ -33,7 +32,8 @@ $(document).ready(function() {
                 data.forEach(item => {
                     resultHtml += `<li>${item}</li>`; // Ajoute chaque résultat à la liste
                 });
-                $('#top5').html(resultHtml); // Mettez à jour la liste dans la carte
+                $('#top5').html(resultHtml); // Mettez à jour la liste dans la
+                                $('#top5').html(resultHtml); // Mettez à jour la liste dans la carte
             },
             error: function(error) {
                 console.error('Erreur lors de la récupération des données:', error);
@@ -54,21 +54,20 @@ $(document).ready(function() {
                 // Mettez à jour la liste avec les résultats
                 let resultHtml = '';
                 data.forEach(item => {
-                    resultHtml += `<p>${item}</p>`; // Ajoute chaque résultat à la liste
+                    resultHtml += `<li>${item}</li>`; // Ajoute chaque résultat à la liste
                 });
-                $('#temps_p_p').html(resultHtml); // Mettez à jour la liste dans la carte
+                $('#temps_p_p_list').html(resultHtml); // Mettez à jour la liste dans la carte
             },
             error: function(error) {
                 console.error('Erreur lors de la récupération des données:', error);
-                $('#temps_p_p').html('<li>Erreur lors de la récupération des données.</li>');
+                $('#temps_p_p_list').html('<li>Erreur lors de la récupération des données.</li>');
             }
         });
     }
 
-    // Appeler fetchTop5 toutes les 5 secondes
-    setInterval(fetchTop5, 5000);
+    // Appeler fetchTemps_p_p toutes les 5 secondes
+    setInterval(fetchTemps_p_p, 5000);
     fetchTemps_p_p(); // Appel initial
-
 
     function top_app() {
         $.ajax({
@@ -89,8 +88,8 @@ $(document).ready(function() {
         });
     }
 
-    // Appeler fetchTop5 toutes les 5 secondes
-    setInterval(fetchTop5, 5000);
+    // Appeler top_app toutes les 5 secondes
+    setInterval(top_app, 5000);
     top_app(); // Appel initial
 
     function top_folder() {
@@ -112,8 +111,8 @@ $(document).ready(function() {
         });
     }
 
-    // Appeler fetchTop5 toutes les 5 secondes
-    setInterval(fetchTop5, 5000);
+    // Appeler top_folder toutes les 5 secondes
+    setInterval(top_folder, 5000);
     top_folder(); // Appel initial
 
     function last_24h() {
@@ -138,5 +137,4 @@ $(document).ready(function() {
     // Appeler last_24h toutes les 5 secondes
     setInterval(last_24h, 5000);
     last_24h(); // Appel initial
-
 });
