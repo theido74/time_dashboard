@@ -53,11 +53,13 @@ nav a:hover {
 .container {
     flex: 1; /* Prend tout l'espace disponible */
     display: flex;
-    flex-wrap: wrap; /* Permet aux cartes de passer à la ligne */
-    justify-content: center; /* Centre les cartes horizontalement */
-    align-items: flex-start; /* Aligne les cartes en haut */
+    flex-direction: column; /* Dispose les éléments verticalement */
+    justify-content: flex-start; /* Aligne les éléments en haut */
+    align-items: flex-start; /* Aligne les éléments à gauche */
     padding: 1.25em; /* 20px = 1.25em */
+    position: relative; /* Nécessaire pour le positionnement absolu des éléments enfants */
 }
+
 
 .dashboard {
     display: flex;
@@ -164,10 +166,28 @@ footer {
     transform: translate(-50%, -50%); /* Centre le troisième cercle */
 }
 
+
+/* Ajustez le formulaire pour ajouter un peu de marge */
+#moisForm {
+    margin-bottom: 10px; /* Marge en bas du formulaire */
+}
+
+#resultatsContainer {
+    width: 25%; /* Définit la largeur à 25% de la page */
+    max-height: 400px; /* Limite la hauteur à 400 pixels */
+    overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+    background: radial-gradient(135deg, #6a0dad, #8a2be2);
+    border: 1px solid #ccc; /* Bordure grise autour du conteneur */
+    padding: 15px; /* Espacement intérieur */
+    margin-top: 10px; /* Marge en haut pour séparer du formulaire */
+    z-index: 1000; /* Assure que le conteneur est au-dessus des autres éléments */
+}
 /* Media Queries pour améliorer la réactivité */
 @media (max-width: 48em) { /* 768px = 48em */
     .card {
-        flex: 1 1 100%; /* Les cartes prennent toute la largeur sur les petits écrans */
+        flex: 1 1 90%; /* Les cartes prennent 90% de la largeur */
+        max-width: 30; /* Limite la largeur à 480px */
+        margin: 0 auto; /* Centre les cartes horizontalement */
     }
 
     .circle {

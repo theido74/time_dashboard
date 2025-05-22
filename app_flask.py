@@ -12,6 +12,10 @@ def hello():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/statistiques')
+def statistiques():
+    return render_template('statistiques.html')
+
 @app.route('/temps_total', methods=['GET'])
 def get_temps_total():
     result = analyse_csv.temps_total_user()
@@ -40,9 +44,15 @@ def get_top_folder():
 @app.route('/last_24h', methods=['GET'])
 def last_24h():
     result = analyse_csv._24h()
-    print('last 24h',result)
     return jsonify(result)
 
+
+@app.route('/mois/<mois_choisi>')
+def afficher_mois(mois_choisi):
+    result = analyse_csv.mois(mois_choisi)
+    return jsonify(result)
+
+
 if __name__ == '__main__':
-    app.run(debug=True)  # Lancer l'application en mode debug
+    app.run(host='0.0.0.0', port=5000)
 

@@ -137,4 +137,49 @@ $(document).ready(function() {
     // Appeler last_24h toutes les 5 secondes
     setInterval(last_24h, 5000);
     last_24h(); // Appel initial
+
+    // script.js
+
+function fetchResults(mois) {
+    if (mois) {
+        fetch(`/mois/${mois}`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('resultatsContainer');
+                container.innerHTML = ''; // Clear previous results
+
+                if (data.length > 0) {
+                    let html = `<h2>Résultats pour le mois de ${mois.charAt(0).toUpperCase() + mois.slice(1)}</h2>`;
+                    html += `<table class="table table-bordered mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>Projet et Utilisateur</th>
+                                        <th>Temps (en secondes)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+                    data.forEach(resultat => {
+                        html += `<tr>
+                                    <td>${resultat['Projet et Utilisateur']}</td>
+                                    <td>${resultat['Temps']}</td>
+                                </tr>`;
+                    });
+                    html += `</tbody></table>`;
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p>Aucun résultat trouvé pour le mois sélectionné.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+    } else {
+        document.getElementById('resultatsContainer').innerHTML = ''; // Clear results if no month is selected
+    }
+}
+    // Écoutez les changements de sélection
+    document.getElementById('moisSelect').addEventListener('change', function() {
+        const selectedMonth = this.value;
+        fetchResults(selectedMonth);
+    });
 });

@@ -75,7 +75,6 @@ def temps_par_projet_et_user(fichier_utilisateurs):
     df_tpp = pd.DataFrame(list(temps_par_projet_utilisateur.items()), columns=['Projet et Utilisateur', 'Temps'])
     df_tpp_final = df_tpp.sort_values(by='Temps', ascending=False, ignore_index=True)
     
-
     return list(df_tpp_final['Projet et Utilisateur'][0:5])
 
 def top_5():# Tri du DataFrame par 'Duration' et affichage
@@ -114,7 +113,6 @@ def _24h():
     
     if counter:
         top5_projet = sorted(counter.items(), key=lambda x: x[1], reverse=True)[:5]
-        print(top5_projet)
         return [f"{projet}: {temps}" for projet, temps in top5_projet]  # Retourner les projets et leur temps
 
     return []  # Retourner une liste vide si aucun projet n'est trouvé
@@ -129,26 +127,34 @@ def semaine():
     df_semaine = df.sort_values(by='Duration', ascending=False, ignore_index=True)
     return df_semaine
 
-def mois(df):
-    mois = {
+def mois(mois_choisi):
+    fichier = 'time_board.csv'
+    df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])   
+    
+    mois_dict = {
         'janvier': '01', 'février': '02', 'mars': '03', 'avril': '04', 
         'mai': '05', 'juin': '06', 'juillet': '07', 'août': '08', 
         'septembre': '09', 'octobre': '10', 'novembre': '11', 'décembre': '12'
     }
     
-    mois_choisi = input('Quel mois analyser ? ').lower()
-    
-    if mois_choisi in mois:
-        # Filtrer le DataFrame pour le mois choisi
-        df_mois = df[df['Entry Time'].str.contains(f'-{mois[mois_choisi]}-')]
-        
-        # Trier le DataFrame filtré par 'Duration'
+    if mois_choisi in mois_dict:
+        df_mois = df[df['Entry Time'].str.contains(f'-{mois_dict[mois_choisi]}-')]
         df_mois = df_mois.sort_values(by='Duration', ascending=False, ignore_index=True)
-        
-        return df_mois
-    else:
-        print("Mois invalide. Veuillez entrer un mois valide.")
-        return None
+
+        folder_utilisation = {}
+        for index, row in df_mois.iterrows():
+            projet = row['Directory']
+            temps = row['Duration']
+            if projet not in folder_utilisation:
+                folder_utilisation[projet] = 0
+            folder_utilisation[projet] += temps
+
+        df_mois_final = pd.DataFrame(list(folder_utilisation.items()), columns=['Projet et Utilisateur', 'Temps'])
+        return df_mois_final.to_dict(orient='records')  # Retourner les résultats sous forme de dictionnaire
+    return []
+
+
+
 
 def find_by_program():
     df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])
@@ -179,12 +185,19 @@ def find_by_program():
         elif 'Mozilla' in projet:
             counter['Mozilla'] = counter.get('Mozilla', 0) + temps
 
+    result = {}
+    for programme, temps in counter.items():
+        heures = temps // 3600
+        minutes = (temps % 3600) // 60
+        result[programme] = f"{heures}h {minutes}m"
+
+    return result
+
     # Trouver le programme avec le temps d'utilisation le plus élevé
-    if counter:
-        top_program = max(counter, key=counter.get)
-        top_time = counter[top_program]
-        print(top_program,top_time)
-        return top_program, top_time  # Retourner le programme et son temps
+    # if counter:
+    #     top_program = max(counter, key=counter.get)
+    #     top_time = counter[top_program]
+    #     return top_program, top_time  # Retourner le programme et son temps
 
 
 
@@ -216,7 +229,6 @@ def find_directory():
     if counter:
         top_folder = max(counter, key=counter.get)
         top_time = counter[top_folder]
-        print(top_time, top_folder)
         return top_folder, top_time  # Retourner le programme et son temps
 
 
@@ -242,7 +254,7 @@ def temps_total_user():
         temps_en_heures_minutes.append(f"{heures}h {minutes}m")  # Ajouter le formatage à la liste
 
    
-    print(temps_en_heures_minutes)
     return temps_en_heures_minutes  # Renvoie la liste des temps formatés
 
-_24h()
+
+print(find_by_program())

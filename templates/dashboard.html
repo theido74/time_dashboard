@@ -6,25 +6,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Dashboard Admin - Graphistes</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script> <!-- Assurez-vous que le chemin est correct -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script> 
 </head>
 <body>
     <header>
         <h1>LA FABRIQUE GRAPHIQUE</h1>
     </header>
     <nav>
-        <a href="#">Accueil</a>
-        <a href="#">Statistiques</a>
+        <a href="/dashboard" class="button">Accueil</a>
+        <a href="/statistiques" class="button">Statistiques</a>
     </nav>
     <div class="container">
         <div class="dashboard">
             <div class="card">
                 <h2>Top 5 Fenêtres</h2>
-                <ul id="top5"></ul> <!-- Utilisation d'un ID unique pour la liste -->
+                <ul id="top5"></ul> 
             </div>
             <div class="card">
                 <h2>Qui fait quoi?</h2>
-                <ul id="temps_p_p_list"> <!-- Utilisation d'un ID unique pour la liste -->
+                <ul id="temps_p_p_list"> 
                     <li class="temps_p_p"></li>
                     <li class="temps_p_p"></li>
                     <li class="temps_p_p"></li>
@@ -49,14 +49,7 @@
                 </ul>
             </div>
         </div>
-        <div class="card">
-            <h2>Notifications</h2>
-            <ul>
-                <li>Nouvelle mise à jour disponible pour le projet A.</li>
-                <li>Rappel: Réunion de l'équipe demain à 10h.</li>
-                <li>Feedback reçu pour le projet B.</li>
-            </ul>
-        </div>
+       
     </div>
 
     <footer>
