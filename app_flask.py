@@ -52,6 +52,10 @@ def afficher_mois(mois_choisi):
     result = analyse_csv.mois(mois_choisi)
     return jsonify(result)
 
+@app.route('/graphic_programme>')
+def graphic_programme():
+    result = analyse_csv.find_by_program()
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

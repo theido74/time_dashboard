@@ -1,6 +1,9 @@
 import pandas as pd
 import os
 import datetime
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 
 # Lire le fichier CSV
 fichier = 'time_board.csv'
@@ -90,33 +93,41 @@ def _24h():
     
     # Convertir la colonne 'Entry Time' en datetime
     df['Entry Time'] = pd.to_datetime(df['Entry Time'], errors='coerce')
-    # Imprimer la date actuelle
     
     # Filtrer les entrées qui ont eu lieu dans les dernières 24 heures
-    df_24h = df[df['Entry Time'] <= datetime.datetime.now() - datetime.timedelta(days=1)]
+    df_24h = df[df['Entry Time'] >= datetime.datetime.now() - datetime.timedelta(days=1)]
     
     programme_utilisation = {}
     
     # Calculer le temps total par projet
     for index, row in df_24h.iterrows():
         projet = row['Directory']
-        temps = row['Duration']
+        temps = row['Duration']  # Supposons que 'Duration' est en secondes
         if projet not in programme_utilisation:
             programme_utilisation[projet] = 0
         programme_utilisation[projet] += temps
+    
     counter = {}
 
-    
     # Compter le temps d'utilisation pour chaque programme
     for projet, temps in programme_utilisation.items():
         counter[projet] = counter.get(projet, 0) + temps
     
     if counter:
         top5_projet = sorted(counter.items(), key=lambda x: x[1], reverse=True)[:5]
-        return [f"{projet}: {temps}" for projet, temps in top5_projet]  # Retourner les projets et leur temps
+        
+        # Convertir le temps en heures et minutes
+        resultats = []
+        for projet, total_temps in top5_projet:
+            heures = total_temps // 3600  # Conversion en heures
+            minutes = (total_temps % 3600) // 60  # Récupération des minutes
+            resultats.append(f"{projet}: {heures}h {minutes}m")  # Formatage du résultat
+            
+        return resultats  # Retourner les projets et leur temps
 
     return []  # Retourner une liste vide si aucun projet n'est trouvé
-   
+
+
 def _72h():
     df_72h = df[df['Entry Time']] <= datetime.datetime.now() - datetime.timedelta(days=3)
     df_72h = df.sort_values(by='Duration', ascending=False, ignore_index=True)
@@ -126,6 +137,7 @@ def semaine():
     df_semaine = df[df['Entry Time']] <= datetime.datetime.now() - datetime.timedelta(days=7)
     df_semaine = df.sort_values(by='Duration', ascending=False, ignore_index=True)
     return df_semaine
+
 
 def mois(mois_choisi):
     fichier = 'time_board.csv'
@@ -138,20 +150,32 @@ def mois(mois_choisi):
     }
     
     if mois_choisi in mois_dict:
+        # Filtrer les entrées du mois choisi
         df_mois = df[df['Entry Time'].str.contains(f'-{mois_dict[mois_choisi]}-')]
         df_mois = df_mois.sort_values(by='Duration', ascending=False, ignore_index=True)
 
         folder_utilisation = {}
         for index, row in df_mois.iterrows():
             projet = row['Directory']
-            temps = row['Duration']
+            temps = row['Duration']  # Supposons que 'Duration' est en secondes
             if projet not in folder_utilisation:
                 folder_utilisation[projet] = 0
             folder_utilisation[projet] += temps
 
-        df_mois_final = pd.DataFrame(list(folder_utilisation.items()), columns=['Projet et Utilisateur', 'Temps'])
-        return df_mois_final.to_dict(orient='records')  # Retourner les résultats sous forme de dictionnaire
-    return []
+        # Convertir le temps total en heures et minutes
+        resultats = []
+        for projet, total_temps in folder_utilisation.items():
+            heures = total_temps // 3600  # Conversion en heures
+            minutes = (total_temps % 3600) // 60  # Récupération des minutes
+            resultats.append({
+                'Projet et Utilisateur': projet,
+                'Temps': f"{heures}h {minutes}m"  # Formatage du temps
+            })
+
+        return resultats  # Retourner les résultats sous forme de liste de dictionnaires
+
+    return []  # Retourner une liste vide si le mois n'est pas trouvé
+
 
 
 
@@ -191,8 +215,14 @@ def find_by_program():
         minutes = (temps % 3600) // 60
         result[programme] = f"{heures}h {minutes}m"
 
-    return result
-
+        # Création du graphique
+    plt.bar(counter.keys(), counter.values(), color=['blue', 'orange'])
+    plt.xlabel('Programmes')
+    plt.ylabel('Temps d\'utilisation (en secondes)')
+    plt.title('Temps d\'utilisation des programmes')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('static/fig1.png')
     # Trouver le programme avec le temps d'utilisation le plus élevé
     # if counter:
     #     top_program = max(counter, key=counter.get)

@@ -182,4 +182,31 @@ function fetchResults(mois) {
         const selectedMonth = this.value;
         fetchResults(selectedMonth);
     });
+
+
+
+    function graphic_programme() {
+        $.ajax({
+            url: '/graphic_programme', // L'URL de votre route Flask
+            method: 'GET',
+            success: function(data) {
+                // Mettez à jour la liste avec les résultats
+                let resultHtml = '';
+                data.forEach(item => {
+                    resultHtml += `<img>${item}</img>`; // Ajoute chaque résultat à la liste
+                });
+                $('#graphic_programm').html(resultHtml); // Mettez à jour la liste dans la carte
+            },
+            error: function(error) {
+                console.error('Erreur lors de la récupération des données:', error);
+                $('#graphic_programme').html('<li>Erreur lors de la récupération des données.</li>');
+            }
+        });
+    }
+    
+    // Appeler last_24h toutes les 5 secondes
+    setInterval(graphic_programme, 5000);
+    graphic_programme(); // Appel initial
 });
+
+

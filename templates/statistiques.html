@@ -7,6 +7,23 @@
     <title>Statistiques</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script> 
+    <style>
+        .flex-container {
+            display: flex;
+            justify-content: space-between; /* Espace entre les éléments */
+        }
+        .form-control {
+            margin-right: 20px; /* Espace entre le select et le graphique */
+        }
+        .resultats-container {
+            margin-top: 20px; /* Espace au-dessus des résultats */
+            justify-content: right; /* Centrer les résultats */
+            display: flex; /* Utiliser flexbox pour centrer */
+
+
+        }
+    </style>
+
 </head>
 <body>
     <header>
@@ -38,7 +55,12 @@
         </form>
 
         <div id="resultatsContainer"></div> <!-- Conteneur pour les résultats -->
-
+                <div class="card mt-4"> <!-- Ajout de la classe mt-4 pour espacer -->
+                    <h2>Programme utilisation</h2>
+                    <img src="{{ url_for('static', filename='fig1.png') }}" alt="Programme utilisation" style="width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>

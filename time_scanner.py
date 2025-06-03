@@ -5,7 +5,7 @@ from datetime import datetime
 import uuid  
 
 def log_directory_visit(directory, entry_time, exit_time, duration, mac_address):
-    with open('time_board.csv', mode='a', newline='') as file:
+    with open('/home/leprechaun/Documents/time_scanner/time_board.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([directory, entry_time.strftime('%Y-%m-%d %H:%M:%S'), exit_time.strftime('%Y-%m-%d %H:%M:%S'), duration, mac_address])
         print(f"Visite enregistrée pour {directory} de {entry_time.strftime('%H:%M:%S')} à {exit_time.strftime('%H:%M:%S')} (Durée: {duration} secondes)")
@@ -51,3 +51,4 @@ def monitor_directories():
 if __name__ == "__main__":
     print("Surveillance des ouvertures de dossiers...")
     monitor_directories()
+
