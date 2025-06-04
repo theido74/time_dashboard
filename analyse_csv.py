@@ -181,42 +181,46 @@ def mois(mois_choisi):
 
 
 def find_by_program():
+    # Lire le fichier CSV
     df = pd.read_csv(fichier, header=None, names=['Directory', 'Entry Time', 'Exit Time', 'Duration', 'MAC Address'])
 
-    programme = ['Visual Studio', 'Mozilla']
-    pattern = '|'.join(programme)
+    # Liste des programmes à filtrer
+    programmes = ['Visual Studio', 'Mozilla', 'Thunar', 'Telegram']
+    pattern = '|'.join(programmes)
     
     # Filtrer le DataFrame pour les programmes spécifiés
     df_programme = df[df['Directory'].str.contains(pattern, case=False, na=False)]
     df_programme = df_programme.sort_values(by='Duration', ascending=False, ignore_index=True)
     
+    
+    # Dictionnaire pour stocker le temps total par projet
     programme_utilisation = {}
     
     # Calculer le temps total par projet
     for index, row in df_programme.iterrows():
         projet = row['Directory']
         temps = row['Duration']
-        if projet not in programme_utilisation:
-            programme_utilisation[projet] = 0
-        programme_utilisation[projet] += temps
+        programme_utilisation[projet] = programme_utilisation.get(projet, 0) + temps
 
-    counter = {}
+    # Dictionnaire pour compter le temps d'utilisation pour chaque programme
+    counter = {programme: 0 for programme in programmes}
     
     # Compter le temps d'utilisation pour chaque programme
     for projet, temps in programme_utilisation.items():
-        if 'Visual Studio' in projet:
-            counter['Visual Studio'] = counter.get('Visual Studio', 0) + temps
-        elif 'Mozilla' in projet:
-            counter['Mozilla'] = counter.get('Mozilla', 0) + temps
+        for programme in programmes:
+            if programme in projet:
+                counter[programme] += temps
+                break  # Sortir de la boucle une fois le programme trouvé
 
+    # Préparer le résultat pour l'affichage
     result = {}
     for programme, temps in counter.items():
         heures = temps // 3600
         minutes = (temps % 3600) // 60
         result[programme] = f"{heures}h {minutes}m"
 
-        # Création du graphique
-    plt.bar(counter.keys(), counter.values(), color=['blue', 'orange'])
+    # Création du graphique
+    plt.bar(counter.keys(), counter.values(), color=['blue', 'orange', 'green', 'red'])
     plt.xlabel('Programmes')
     plt.ylabel('Temps d\'utilisation (en secondes)')
     plt.title('Temps d\'utilisation des programmes')

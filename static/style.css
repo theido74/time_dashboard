@@ -12,6 +12,7 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     position: relative; /* Nécessaire pour que les éléments absolus soient positionnés par rapport au body */
+    overflow: hidden; /* Empêche le défilement */
 }
 
 header {
@@ -50,7 +51,7 @@ nav a:hover {
     font-family: Arial, sans-serif;
 }
 
-.container {
+.container, .container2 {
     flex: 1; /* Prend tout l'espace disponible */
     display: flex;
     flex-direction: column; /* Dispose les éléments verticalement */
@@ -58,8 +59,8 @@ nav a:hover {
     align-items: flex-start; /* Aligne les éléments à gauche */
     padding: 1.25em; /* 20px = 1.25em */
     position: relative; /* Nécessaire pour le positionnement absolu des éléments enfants */
+    overflow: auto; /* Ajoute un défilement si le contenu dépasse */
 }
-
 
 .dashboard {
     display: flex;
@@ -73,10 +74,16 @@ nav a:hover {
     box-shadow: 0 0.25em 0.625em rgba(0, 0, 0, 0.3); /* 4px = 0.25em, 10px = 0.625em */
     padding: 1.25em; /* 20px = 1.25em */
     margin: 0.625em; /* 10px = 0.625em */
-    flex: 1 1 18.75em; /* 300px = 18.75em */
+    flex: 1 1 auto; /* Permet aux cartes de s'adapter à leur contenu */
     max-width: 37.5em; /* 600px = 37.5em */
     text-align: left; /* Aligne le texte à gauche */
+    min-height: 200px; /* Hauteur minimale pour s'assurer que le contenu est visible */
+    display: flex; /* Utiliser flex pour aligner le contenu */
+    flex-direction: column; /* Disposer les éléments verticalement */
+    justify-content: flex-start; /* Aligner le contenu en haut */
 }
+
+
 
 .card h2 {
     font-size: 1.5em;
@@ -186,9 +193,10 @@ footer {
 @media (max-width: 48em) { /* 768px = 48em */
     .card {
         flex: 1 1 90%; /* Les cartes prennent 90% de la largeur */
-        max-width: 30; /* Limite la largeur à 480px */
+        max-width: 50; /* Limite la largeur à 480px */
         margin: 0 auto; /* Centre les cartes horizontalement */
     }
+
 
     .circle {
         width: 30vw; /* Ajuste la taille du cercle pour les petits écrans */
